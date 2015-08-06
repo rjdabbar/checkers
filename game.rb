@@ -1,18 +1,20 @@
 require_relative 'board.rb'
 require_relative 'custom_error.rb'
+require_relative 'computer_player.rb'
 class Game
 
   attr_reader :players, :board
   attr_accessor :current_player
   def initialize
     @board = Board.new
-    @players = {red: HumanPlayer.new(:red), black: HumanPlayer.new(:black)}
+    @players = {red: ComputerPlayer.new(:red, board), black: ComputerPlayer.new(:black, board)}
     @current_player = players.keys.shuffle.first
   end
 
   def play
     until board.over?
       players[current_player].play_turn(board)
+      board.render
       self.current_player = (current_player == :red) ? :black : :red
     end
 

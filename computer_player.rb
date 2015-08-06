@@ -1,3 +1,4 @@
+require 'byebug'
 class ComputerPlayer
 
   attr_reader :color, :board, :other_color
@@ -8,26 +9,38 @@ class ComputerPlayer
   end
 
 
-  def play_turn
-
+  def play_turn(board)
+    if !jump_moves.empty?
+      piece = jump_moves.keys.shuffle.first
+      move = jump_moves[piece].shuffle.first
+      board.make_moves(color, piece.pos, [move])
+    elsif !king_moves.empty?
+      piece = king_moves.keys.shuffle.first
+      move = king_moves[piece].shuffle.first
+      board.make_moves(color, piece.pos, [move])
+    else
+      piece = random_moves.keys.shuffle.first
+      move = random_moves[piece].shuffle.first
+      board.make_moves(color, piece.pos, [move])
+    end
   end
 
-  def capture_moves
-    moves = []
+  def jump_moves
+    moves = Hash.new { |h, k| h[k] = [] }
     board.pieces(color).each do |piece|
-      moves << piece.jumps
+      moves[piece] = piece.jumps
     end
-    moves
+    moves.delete_if { |piece, moves| moves.empty? }
   end
 
   def king_moves
-    moves = []
+    moves = Hash.new { |h, k| h[k] = [] }
     board.pieces(color).each do |piece|
       piece.all_moves.each do |move|
-        moves << move   if at_back_row?(move, color)
+        moves[piece] << move   if at_back_row?(move, color)
       end
     end
-    moves
+    moves.delete_if { |piece, moves| moves.empty? }
   end
 
   def at_back_row?(pos, color)
@@ -36,21 +49,14 @@ class ComputerPlayer
     false
   end
 
-  def safe_moves
-    moves = []
-    test_board = board.dup
-    test_board.pieces.each do |piece|
+  def random_moves
+    moves = Hash.new { |h, k| h[k] = [] }
+    board.pieces(color).each do |piece|
       piece.all_moves.each do |move|
-        test_board.make_moves(color, piece, move)
-        test_board.pieces(other_color)
+        moves[piece] << move
       end
     end
-
-  moves
-  end
-
-  def random_move
-
+    moves.delete_if { |piece, moves| moves.empty? }
   end
 
 
