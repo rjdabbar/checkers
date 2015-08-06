@@ -14,7 +14,7 @@ class Piece
   end
 
   def to_s
-    "O".colorize(color)
+    rank == :king ? "K".colorize(color) : "O".colorize(color)
   end
 
   def move_dirs #needs to be updated for rank == :king
