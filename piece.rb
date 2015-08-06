@@ -19,7 +19,7 @@ class Piece
     color == :red ? RED_MOVES : BLACK_MOVES
   end
 
-  def perform_moves(moves)
+  def perform_moves!(moves)
     if moves.count == 1
       move = moves[0]
       slides.include?(move) ? perform_slide(move) : perform_jump(move)
