@@ -62,9 +62,24 @@ class Board
     self[end_pos] = piece
   end
 
+  def all_red?
+    pieces.all? { |piece| piece.color == :red}
+  end
+
+  def all_black?
+    pieces.all? { |piece| piece.color == :black}
+  end
+
   def winner
-    :red if pieces.all? { |piece| piece.color == :red}
-    :black if pieces.all? { |piece| piece.color == :black}
+    :red if all_red?
+    :black if all_black?
+  end
+
+  def over?
+    if all_red? || all_black?
+      return true
+    end
+    false
   end
 
   def render
