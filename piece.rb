@@ -1,3 +1,4 @@
+require 'byebug'
 require 'colorize'
 class Piece
   RED_MOVES =   [[ 1, -1],[ 1, 1]]
@@ -21,9 +22,18 @@ class Piece
 
   def perform_slide(new_pos)
     if slides.include?(new_pos)
+      board.update_move(self, new_pos)
+      true
+    else
+      false
+    end
+  end
+
+  def perform_jump(new_pos)
+    if jumps.include?(new_pos)
+      blocked = new_slide(pos, jump_direction(pos, new_pos))
       board[pos] = nil
-      self.pos = new_pos
-      board[new_pos] = self
+      board.update_move(self, new_pos)
       true
     else
       false
@@ -39,8 +49,7 @@ class Piece
     move_dirs.each do |direction|
       jump_pos = new_jump(pos, direction)
       blocked_pos = new_slide(pos, direction)
-
-      jumps << potential_jump if board.can_jump?(blocked_pos, color, jump_pos)
+      jumps << jump_pos if board.can_jump?(blocked_pos, color, jump_pos)
     end
 
     jumps.select { |move| valid_move?(move) }
@@ -68,5 +77,8 @@ class Piece
     move.all? { |coord| coord.between?(0,7) }
   end
 
+  def jump_direction(start_pos, end_pos)
+    [(end_pos[0] - start_pos[0] )/2, (end_pos[1] - start_pos[1])/2]
+  end
 
 end

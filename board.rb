@@ -1,4 +1,6 @@
+
 require_relative 'piece.rb'
+require 'byebug'
 require 'colorize'
 
 class Board
@@ -32,7 +34,13 @@ class Board
   end
 
   def can_jump?(blocked_pos, color, jump_pos)
-    enemy?(blocked_space, color) && empty?(jump_pos)
+    empty?(jump_pos) && !empty?(blocked_pos) && enemy?(blocked_pos, color)
+  end
+
+  def update_move(piece, end_pos)
+    self[piece.pos] = nil
+    piece.pos = end_pos
+    self[end_pos] = piece
   end
 
   def render
@@ -67,5 +75,19 @@ class Board
       end
     end
   end
+
+end
+
+if $PROGRAM_NAME == __FILE__
+    b = Board.new
+
+    b.render
+
+    b[[2,2]].perform_slide([3,3])
+    b.render
+    b[[3,3]].perform_slide([4,4])
+    b.render
+    b[[5,3]].perform_jump([3,5])
+    b.render
 
 end
