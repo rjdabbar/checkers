@@ -6,14 +6,17 @@ class Game
   def initialize
     @board = Board.new
     @players = {red: HumanPlayer.new(:red), black: HumanPlayer.new(:black)}
-    @current_player = players.shuffle.first
+    @current_player = players.keys.shuffle.first
   end
 
   def play
     until board.over?
-      current_player.play_turn(board)
-      current_player = (current_player == :red) ? :black : :red
+      players[current_player].play_turn(board)
+      self.current_player = (current_player == :red) ? :black : :red
     end
+
+    board.render
+    puts "#{board.winner.to_s.upcase} WINS!!!"
   end
 end
 
@@ -27,13 +30,13 @@ class HumanPlayer
   end
 
   def play_turn(board)
-    moves = []
+    board.render
+    puts "#{color.to_s.upcase}'s TURN'"
+    piece = get_piece
     begin
-      piece = get_piece
-      moves << get_move
-      board.make_moves(piece, moves)
-    rescue InvalidMoveError => e
-      puts "#{e.move} #{e.message}"
+      board.make_moves(piece, get_moves)
+    rescue
+
       retry
     end
   end
@@ -43,9 +46,13 @@ class HumanPlayer
     gets.chomp.split(',').map { |coord| Integer(coord) }
   end
 
-  def get_move
-    puts "Enter moves you would like to make. Press Q to enter your moves"
-    gets.chomp.split(',').map { |coord| Integer(coord) }
+  def get_moves
+    puts "Enter moves you would like to make."
+    gets.chomp.split(',').map { |coord| Integer(coord) }.each_slice(2).to_a
   end
 
+end
+
+if $PROGRAM_NAME == __FILE__
+  Game.new.play
 end

@@ -62,8 +62,8 @@ class Board
     self[end_pos] = piece
   end
 
-  def make_moves(piece, moves)
-    self[piece.pos].perform_moves(moves)
+  def make_moves(piece_pos, moves)
+    self[piece_pos].perform_moves(moves)
   end
 
   def all_red?
@@ -117,34 +117,5 @@ class Board
       end
     end
   end
-
-end
-
-if $PROGRAM_NAME == __FILE__
-    b = Board.new
-
-    b.render
-    # b.winner
-    # b[[2,2]].perform_moves([[3,3]])
-    # b.render
-    # b[[3,3]].perform_moves([[4,4]])
-    # b.render
-    # # b[[5,3]].perform_moves([[3,5]])
-    # # b.render
-    # b[[1,1]].perform_moves([[2,2]])
-    # b.render
-    # b[[5,5]].perform_moves([[3,3], [1,1]])
-    # b.render
-    # b[[1,3]].perform_moves([[2,2]])
-    # b.render
-    # b[[0,2]].perform_moves([[1,3]])
-    # b.render
-    # # debugger
-    # b[[1,1]].perform_moves([[0,2]])
-    # b.render
-    #
-
-    # b[[0,0]].perform_moves([[2,2], [7,7]])
-    # b.render
 
 end
