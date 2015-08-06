@@ -21,8 +21,18 @@ class Board
     grid[row][col] = piece
   end
 
+  # def dup
+  #   new_board = Board.new(false)
+  #
+  #   new_board
+  # end
+
   def add_piece(piece)
     self[piece.pos] = piece
+  end
+
+  def pieces
+    grid.flatten.compact
   end
 
   def empty?(pos)
