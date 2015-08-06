@@ -1,3 +1,4 @@
+require_relative 'piece.rb'
 class Board
    attr_reader :grid
   def initialize(filled=true)
@@ -21,7 +22,7 @@ class Board
   def populate_board(filled)
     @grid = Array.new(8) { Array.new(8) }
     return unless filled
-    place_pieces
+    [:red, :black].each { |color| place_pieces(color)}
   end
 
   def place_pieces(color)
@@ -31,7 +32,7 @@ class Board
     home.each do |row|
       8.times do |col|
         if row.even? && col.even? || row.odd? && col.odd?
-          Piece.new(color, self, [row, col])
+          Piece.new(color, [row, col], self)
         end
       end
     end
