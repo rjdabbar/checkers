@@ -31,6 +31,10 @@ class Board
     self[pos].color != color
   end
 
+  def can_jump?(blocked_pos, color, jump_pos)
+    enemy?(blocked_space, color) && empty?(jump_pos)
+  end
+
   def render
     print "_________________________________________\n"
     grid.each_with_index do |row, row_idx|

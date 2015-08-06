@@ -19,15 +19,19 @@ class Piece
     color == :red ? RED_MOVES : BLACK_MOVES
   end
 
+  def moves
+    jumps + slides
+  end
+
   def jumps
     jumps = []
     move_dirs.each do |direction|
-      potential_jump = new_jump(pos, direction)
-      blocked_space = new_slide(pos, direction)
-      if board.enemy?(blocked_space) && board.empty?(potential_jump)
-        jumps << potential_jump
-      end
+      jump_pos = new_jump(pos, direction)
+      blocked_pos = new_slide(pos, direction)
+
+      jumps << potential_jump if board.can_jump?(blocked_pos, color, jump_pos)
     end
+    
     jumps.select { |move| valid_move?(move) }
   end
 
