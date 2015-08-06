@@ -17,6 +17,9 @@ class HumanPlayer
 
   def initialize(color)
     @color = color
+  end
 
+  def get_move
+     gets.chomp.split(',').map { |coord| Integer(coord) }
   end
 end
