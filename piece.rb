@@ -19,14 +19,14 @@ class Piece
     color == :red ? RED_MOVES : BLACK_MOVES
   end
 
-  def moves
-    moves = []
+  def slides
+    slides = []
       move_dirs.each do |direction|
         potential_move = new_pos(pos, direction)
-        moves << potential_move if board.empty?(potential_move)
+        slides << potential_move if board.empty?(potential_move)
       end
 
-    moves.select { |move| valid_move?(move) }
+    slides.select { |move| valid_move?(move) }
   end
 
   def new_pos(start_pos, end_pos)
