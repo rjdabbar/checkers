@@ -17,7 +17,7 @@ class Piece
     rank == :king ? "K".colorize(color) : "O".colorize(color)
   end
 
-  def move_dirs #needs to be updated for rank == :king
+  def move_dirs
     if rank == :king
       RED_MOVES + BLACK_MOVES
     else
@@ -38,7 +38,6 @@ class Piece
 
   def perform_moves(moves)
    if valid_moves?(moves)
-    #  debugger
      perform_moves!(moves)
      promote
    else
@@ -47,7 +46,6 @@ class Piece
   end
 
   def perform_moves!(moves)
-
     raise InvalidMoveError.new('enter at least one move') if moves.count < 1
     if moves.count == 1
       move = moves[0]
@@ -68,7 +66,6 @@ class Piece
   end
 
   def should_promote?
-
     (color == :red && pos[0] == 7)  || (color == :black && pos[0] == 0)
   end
 
@@ -90,10 +87,6 @@ class Piece
     else
       false
     end
-  end
-
-  def moves
-    jumps + slides
   end
 
   def jumps

@@ -62,6 +62,11 @@ class Board
     self[end_pos] = piece
   end
 
+  def winner
+    :red if pieces.all? { |piece| piece.color == :red}
+    :black if pieces.all? { |piece| piece.color == :black}
+  end
+
   def render
     print "_________________________________________\n"
     grid.each_with_index do |row, row_idx|
@@ -100,26 +105,26 @@ if $PROGRAM_NAME == __FILE__
     b = Board.new
 
     b.render
-
-    b[[2,2]].perform_moves([[3,3]])
-    b.render
-    b[[3,3]].perform_moves([[4,4]])
-    b.render
-    # b[[5,3]].perform_moves([[3,5]])
+    # b.winner
+    # b[[2,2]].perform_moves([[3,3]])
     # b.render
-    b[[1,1]].perform_moves([[2,2]])
-    b.render
-    b[[5,5]].perform_moves([[3,3], [1,1]])
-    b.render
-    b[[1,3]].perform_moves([[2,2]])
-    b.render
-    b[[0,2]].perform_moves([[1,3]])
-    b.render
-    # debugger
-    b[[1,1]].perform_moves([[0,2]])
-    b.render
+    # b[[3,3]].perform_moves([[4,4]])
+    # b.render
+    # # b[[5,3]].perform_moves([[3,5]])
+    # # b.render
+    # b[[1,1]].perform_moves([[2,2]])
+    # b.render
+    # b[[5,5]].perform_moves([[3,3], [1,1]])
+    # b.render
+    # b[[1,3]].perform_moves([[2,2]])
+    # b.render
+    # b[[0,2]].perform_moves([[1,3]])
+    # b.render
+    # # debugger
+    # b[[1,1]].perform_moves([[0,2]])
+    # b.render
+    #
 
-    
     # b[[0,0]].perform_moves([[2,2], [7,7]])
     # b.render
 
