@@ -23,6 +23,10 @@ class Piece
     if move_sequence.count == 1
       move = move_sequence[0]
       slides.include?(move) ? perform_slide(move) : perform_jump(move)
+    else
+      move_sequence.each do |move|
+        perform_jump(move)
+      end
     end
   end
 

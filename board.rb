@@ -106,7 +106,11 @@ if $PROGRAM_NAME == __FILE__
     b.render
     b[[3,3]].perform_move_sequence([[4,4]])
     b.render
-    b[[5,3]].perform_move_sequence([[3,5]])
+    # b[[5,3]].perform_move_sequence([[3,5]])
+    # b.render
+    b[[1,1]].perform_move_sequence([[2,2]])
+    b.render
+    b[[5,5]].perform_move_sequence([[3,3], [1,1]])
     b.render
 
 end
