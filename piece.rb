@@ -19,6 +19,17 @@ class Piece
     color == :red ? RED_MOVES : BLACK_MOVES
   end
 
+  def perform_slide(new_pos)
+    if slides.include?(new_pos)
+      board[pos] = nil
+      self.pos = new_pos
+      board[new_pos] = self
+      true
+    else
+      false
+    end
+  end
+
   def moves
     jumps + slides
   end
@@ -31,7 +42,7 @@ class Piece
 
       jumps << potential_jump if board.can_jump?(blocked_pos, color, jump_pos)
     end
-    
+
     jumps.select { |move| valid_move?(move) }
   end
 
