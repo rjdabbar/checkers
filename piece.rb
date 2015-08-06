@@ -18,7 +18,11 @@ class Piece
   end
 
   def move_dirs #needs to be updated for rank == :king
-    color == :red ? RED_MOVES : BLACK_MOVES
+    if rank == :king
+      RED_MOVES + BLACK_MOVES
+    else
+      color == :red ? RED_MOVES : BLACK_MOVES
+    end
   end
 
   def valid_moves?(moves)
@@ -47,15 +51,13 @@ class Piece
 
   def perform_moves!(moves)
 
-    raise InvalidMoveError.new, 'enter at least one move' if moves.count < 1
+    raise InvalidMoveError.new('enter at least one move') if moves.count < 1
     if moves.count == 1
       move = moves[0]
-      raise InvalidMoveError.new(move),'is not a valid move' unless valid_slide_or_jump?(move)
-      slides.include?(move) ? perform_slide(move) : perform_jump(move)
+      raise InvalidMoveError.new('is not a valid move', move) unless perform_slide(move) || perform_jump(move)
     else
       moves.each do |move|
-        raise InvalidMoveError.new(move),'is an invalid jump' unless jumps.include?(move)
-        perform_jump(move)
+        raise InvalidMoveError.new('is an invalid jump', move) unless perform_jump(move)
       end
     end
   end
