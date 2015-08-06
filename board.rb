@@ -27,6 +27,10 @@ class Board
     self[pos].nil?
   end
 
+  def enemy?(pos, color)
+    self[pos].color != color
+  end
+
   def render
     print "_________________________________________\n"
     grid.each_with_index do |row, row_idx|
