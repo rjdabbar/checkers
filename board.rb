@@ -119,6 +119,7 @@ if $PROGRAM_NAME == __FILE__
     b[[1,1]].perform_moves([[0,2]])
     b.render
 
+    
     # b[[0,0]].perform_moves([[2,2], [7,7]])
     # b.render
 
