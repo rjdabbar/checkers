@@ -6,9 +6,8 @@ class Piece
   attr_reader :color, :board
   attr_accessor :pos, :rank
 
-  def initialize(color, pos, board)
-    @color, @pos, @board, = color, pos, board
-    @rank = :pawn
+  def initialize(color, pos, board, rank=:pawn)
+    @color, @pos, @board, @rank = color, pos, board, rank
     board.add_piece(self)
   end
 
@@ -72,7 +71,7 @@ class Piece
   def new_jump(start_pos, dir)
     [start_pos[0] + dir[0]*2, start_pos[1] + dir[1]*2]
   end
-  
+
   def jump_direction(start_pos, end_pos)
     [(end_pos[0] - start_pos[0]) / 2, (end_pos[1] - start_pos[1]) / 2]
   end
