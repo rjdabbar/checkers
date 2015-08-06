@@ -2,12 +2,18 @@ require_relative 'board.rb'
 class Game
 
   attr_reader :players, :board
-
+  attr_accessor :current_player
   def initialize
     @board = Board.new
     @players = {red: HumanPlayer.new(:red), black: HumanPlayer.new(:black)}
+    @current_player = players.shuffle.first
   end
 
+  def play
+    until board.over?
+
+    end
+  end
 end
 
 
