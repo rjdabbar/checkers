@@ -62,6 +62,14 @@ class Piece
     end
   end
 
+  def promote
+    rank = :king if should_promote?
+  end
+
+  def should_promote?
+    (color == :red && pos[0] == 7)  || (color == :black && pos[0] == 0)
+  end
+
   def perform_slide(new_pos)
     if slides.include?(new_pos)
       board.update_move(self, new_pos)
