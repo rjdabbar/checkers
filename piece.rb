@@ -94,6 +94,10 @@ class Piece
     slides.concat(jumps).empty?
   end
 
+  def all_moves
+    jumps + slides
+  end
+
   def jumps
     jumps = []
     move_dirs.each do |direction|
