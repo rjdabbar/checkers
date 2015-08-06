@@ -13,7 +13,7 @@ class Piece
   end
 
   def to_s
-    print "O".colorize(color)
+    "O".colorize(color)
   end
 
   def move_dirs
@@ -31,8 +31,8 @@ class Piece
 
   def perform_jump(new_pos)
     if jumps.include?(new_pos)
-      blocked = new_slide(pos, jump_direction(pos, new_pos))
-      board[pos] = nil
+      blocked_pos = new_slide(pos, jump_direction(pos, new_pos))
+      board[blocked_pos] = nil
       board.update_move(self, new_pos)
       true
     else
