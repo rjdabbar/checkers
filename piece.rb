@@ -14,6 +14,9 @@ class Piece
     print "O".colorize(color)
   end
 
+  def move_dirs
+    color == :red ? RED_MOVES : BLACK_MOVES
+  end
 
 
 
