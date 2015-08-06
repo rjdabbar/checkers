@@ -36,10 +36,6 @@ class Piece
     true
   end
 
-  def valid_slide_or_jump?(move)
-    slides.include?(move) || jumps.include?(move)
-  end
-
   def perform_moves(moves)
    if valid_moves?(moves)
     #  debugger
@@ -54,10 +50,14 @@ class Piece
     raise InvalidMoveError.new('enter at least one move') if moves.count < 1
     if moves.count == 1
       move = moves[0]
-      raise InvalidMoveError.new('is not a valid move', move) unless perform_slide(move) || perform_jump(move)
+      unless perform_slide(move) || perform_jump(move)
+        raise InvalidMoveError.new('is not a valid move', move)
+      end
     else
       moves.each do |move|
-        raise InvalidMoveError.new('is an invalid jump', move) unless perform_jump(move)
+        unless perform_jump(move)
+          raise InvalidMoveError.new('is an invalid jump', move)
+        end
       end
     end
   end
