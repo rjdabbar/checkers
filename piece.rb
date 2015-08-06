@@ -19,12 +19,12 @@ class Piece
     color == :red ? RED_MOVES : BLACK_MOVES
   end
 
-  def perform_move_sequence(move_sequence)
-    if move_sequence.count == 1
-      move = move_sequence[0]
+  def perform_moves(moves)
+    if moves.count == 1
+      move = moves[0]
       slides.include?(move) ? perform_slide(move) : perform_jump(move)
     else
-      move_sequence.each do |move|
+      moves.each do |move|
         perform_jump(move)
       end
     end
