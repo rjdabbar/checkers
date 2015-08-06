@@ -1,7 +1,7 @@
 class Board
    attr_reader :grid
   def initialize(filled=true)
-
+    populate_board(filled)
   end
 
   def [](pos)
