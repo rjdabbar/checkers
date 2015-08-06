@@ -111,7 +111,15 @@ if $PROGRAM_NAME == __FILE__
     b.render
     b[[5,5]].perform_moves([[3,3], [1,1]])
     b.render
-    b[[0,0]].perform_moves([[2,2], [7,7]])
+    b[[1,3]].perform_moves([[2,2]])
     b.render
+    b[[0,2]].perform_moves([[1,3]])
+    b.render
+    # debugger
+    b[[1,1]].perform_moves([[0,2]])
+    b.render
+
+    # b[[0,0]].perform_moves([[2,2], [7,7]])
+    # b.render
 
 end

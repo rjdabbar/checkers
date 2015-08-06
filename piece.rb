@@ -40,6 +40,7 @@ class Piece
    if valid_moves?(moves)
     #  debugger
      perform_moves!(moves)
+     promote
    else
      puts "#{e.move} #{e.message}"
    end
@@ -63,10 +64,11 @@ class Piece
   end
 
   def promote
-    rank = :king if should_promote?
+    self.rank = :king if should_promote?
   end
 
   def should_promote?
+
     (color == :red && pos[0] == 7)  || (color == :black && pos[0] == 0)
   end
 
