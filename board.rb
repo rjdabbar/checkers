@@ -13,4 +13,8 @@ class Board
     row, col = pos
     grid[row][col] = piece
   end
+
+  def add_piece(piece)
+    self[piece.pos] = piece
+  end
 end
