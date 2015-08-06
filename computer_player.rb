@@ -8,7 +8,6 @@ class ComputerPlayer
     @other_color = (color == :red ? :black : :red)
   end
 
-
   def play_turn(board)
     if !jump_moves.empty?
       piece = jump_moves.keys.shuffle.first
@@ -58,6 +57,4 @@ class ComputerPlayer
     end
     moves.delete_if { |piece, moves| moves.empty? }
   end
-
-
 end

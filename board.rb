@@ -43,7 +43,6 @@ class Board
     end
   end
 
-
   def empty?(pos)
     valid_move?(pos) && self[pos].nil?
   end

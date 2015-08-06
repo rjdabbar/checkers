@@ -17,7 +17,6 @@ class Game
       board.render
       self.current_player = (current_player == :red) ? :black : :red
     end
-
     board.render
     puts "#{board.winner.to_s.upcase} WINS!!!"
   end
