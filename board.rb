@@ -25,7 +25,6 @@ class Board
 
   def dup
     new_board = Board.new(false)
-
     pieces.each do |piece|
       Piece.new(piece.color, piece.pos, new_board, piece.rank)
     end
@@ -63,10 +62,12 @@ class Board
   end
 
   def make_moves(turn_color, piece_pos, moves)
-    if turn_color != self[piece_pos].color
-      raise InvalidPieceError.new('that is not your piece to move', piece_pos)
+    if self[piece_pos].nil?
+      raise InvalidPieceError.new('there is no piece there', piece_pos)
     elsif self[piece_pos].has_no_moves?
       raise InvalidPieceError.new('that piece has no moves', piece_pos)
+    elsif turn_color != self[piece_pos].color
+      raise InvalidPieceError.new('that is not your piece to move', piece_pos)
     end
     self[piece_pos].perform_moves(moves)
   end

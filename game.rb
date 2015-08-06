@@ -1,4 +1,5 @@
 require_relative 'board.rb'
+require_relative 'custom_error.rb'
 class Game
 
   attr_reader :players, :board
@@ -35,6 +36,9 @@ class HumanPlayer
     begin
       piece = get_piece
       board.make_moves(color, piece, get_moves)
+    rescue InvalidInputError => e
+      puts "#{e.input} #{e.message}"
+      retry
     rescue InvalidPieceError => e
       puts "#{e.piece} #{e.message}"
       retry
@@ -47,18 +51,24 @@ class HumanPlayer
   def get_piece
     puts "Which piece would you like to move?"
     begin
-      piece_pos = gets.chomp.split(',').map { |coord| Integer(coord) }
-    rescue
-      retry
+      piece_pos = trim_input(gets.chomp)
+    rescue ArgumentError
+      raise InvalidInputError.new("that is not a valid input", piece_pos)
     end
-
   end
 
   def get_moves
     puts "Enter moves you would like to make."
-    gets.chomp.split(',').map { |coord| Integer(coord) }.each_slice(2).to_a
+    begin
+      input = trim_input(gets.chomp).each_slice(2).to_a
+    rescue ArgumentError
+      raise InvalidInputError.new("that is not a valid input", input)
+    end
   end
 
+  def trim_input(input)
+    input.split(',').map { |coord| Integer(coord) }
+  end
 end
 
 if $PROGRAM_NAME == __FILE__

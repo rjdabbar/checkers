@@ -14,6 +14,16 @@ class InvalidPieceError < StandardError
 
   def initialize(message, piece)
     super(message)
-    @piece = piece    
+    @piece = piece
+  end
+end
+
+class InvalidInputError < StandardError
+
+  attr_reader :input
+
+  def initialize(message, input)
+    super(message)
+    @input = input
   end
 end

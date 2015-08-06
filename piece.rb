@@ -29,7 +29,7 @@ class Piece
     test_board = board.dup
     begin
       test_board[self.pos].perform_moves!(moves)
-    rescue 
+    rescue
       false
     end
     true
@@ -43,8 +43,6 @@ class Piece
   end
 
   def perform_moves!(moves)
-
-
     handle_bad_move('enter at least one move') if moves.count < 1
     if moves.count == 1
       move = moves[0]
@@ -62,10 +60,6 @@ class Piece
 
   def handle_bad_move(message, move=nil)
     raise InvalidMoveError.new(message, move)
-  end
-
-  def handle_bad_piece(message, piece)
-    raise InvalidPieceError.new(message, piece)
   end
 
   def promote
