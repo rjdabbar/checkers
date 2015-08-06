@@ -1,4 +1,5 @@
 require_relative 'piece.rb'
+require 'colorize'
 class Board
    attr_reader :grid
   def initialize(filled=true)
