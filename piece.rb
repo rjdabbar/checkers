@@ -15,22 +15,31 @@ class Piece
     "O".colorize(color)
   end
 
-  def move_dirs
+  def move_dirs #needs to be updated for rank == :king
     color == :red ? RED_MOVES : BLACK_MOVES
   end
 
   def valid_moves?(moves)
     test_board = board.dup
-    perform_moves!(moves)
+    begin
+      perform_moves!(moves)
+    rescue RuntimeError => e
+      false
+    end
+    true
   end
 
   def valid_slide_or_jump?(move)
     slides.include?(move) || jumps.include?(move)
   end
 
-  # def perform_moves(moves)
-  #   perform_moves!(moves) if valid_moves?(moves)
-  # end
+  def perform_moves(moves)
+   if valid_moves?(moves)
+     perform_moves!(moves)
+   else
+     puts "#{e.message}"
+   end
+  end
 
   def perform_moves!(moves)
     raise 'enter at least one move' if moves.count < 1
@@ -96,7 +105,7 @@ class Piece
   end
 
   def new_jump(start_pos, dir)
-    [start_pos[0] + dir[0]*2, start_pos[1] + dir[1]*2]
+    [start_pos[0] + dir[0] * 2, start_pos[1] + dir[1] * 2]
   end
 
   def jump_direction(start_pos, end_pos)
