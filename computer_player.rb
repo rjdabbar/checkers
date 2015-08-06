@@ -40,7 +40,7 @@ class ComputerPlayer
         moves[piece] << move   if at_back_row?(move, color)
       end
     end
-    moves.delete_if { |piece, moves| moves.empty? }
+    moves.delete_if { |piece, moves| moves.empty? || piece.rank == :king }
   end
 
   def at_back_row?(pos, color)

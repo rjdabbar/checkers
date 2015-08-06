@@ -45,7 +45,7 @@ class Board
 
 
   def empty?(pos)
-    self[pos].nil?
+    valid_move?(pos) && self[pos].nil?
   end
 
   def enemy?(pos, color)
