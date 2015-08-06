@@ -26,7 +26,7 @@ class Piece
         moves << potential_move if board.empty?(potential_move)
       end
 
-    moves
+    moves.select { |move| valid_move?(move) }
   end
 
   def new_pos(start_pos, end_pos)
