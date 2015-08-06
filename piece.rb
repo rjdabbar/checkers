@@ -8,4 +8,6 @@ class Piece
     board.add_piece(self)
   end
 
+
+
 end

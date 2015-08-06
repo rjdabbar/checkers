@@ -19,6 +19,10 @@ class Board
     self[piece.pos] = piece
   end
 
+  def empty?(pos)
+    self[pos].nil?
+  end
+
   def populate_board(filled)
     @grid = Array.new(8) { Array.new(8) }
     return unless filled
@@ -37,6 +41,4 @@ class Board
       end
     end
   end
-
-
 end
