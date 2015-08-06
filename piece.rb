@@ -28,6 +28,10 @@ class Piece
     slides.include?(move) || jumps.include?(move)
   end
 
+  # def perform_moves(moves)
+  #   perform_moves!(moves) if valid_moves?(moves)
+  # end
+
   def perform_moves!(moves)
     raise 'enter at least one move' if moves.count < 1
     if moves.count == 1

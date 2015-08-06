@@ -5,7 +5,7 @@ require 'colorize'
 
 class Board
   BOARD_SIZE = 8
-  START_ROWS = [[0,1,2], [5,6,7]]
+  START_ROWS = {red: [0,1,2], black: [5,6,7]}
 
   attr_reader :grid
 
@@ -85,8 +85,7 @@ class Board
   end
 
   def place_pieces(color)
-    color == :red ? home = START_ROWS.shift : home = START_ROWS.pop
-    home.each do |row|
+    START_ROWS[color].each do |row|
       BOARD_SIZE.times do |col|
         if row.even? && col.even? || row.odd? && col.odd?
           Piece.new(color, [row, col], self)
