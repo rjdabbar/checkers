@@ -62,6 +62,10 @@ class Board
     self[end_pos] = piece
   end
 
+  def make_moves(piece, moves)
+    self[piece.pos].perform_moves(moves)
+  end
+
   def all_red?
     pieces.all? { |piece| piece.color == :red}
   end
