@@ -1,5 +1,7 @@
 require 'byebug'
 require 'colorize'
+
+require_relative 'custom_error.rb'
 class Piece
   RED_MOVES =   [[ 1, -1],[ 1, 1]]
   BLACK_MOVES = [[-1, -1],[-1, 1]]
@@ -22,8 +24,9 @@ class Piece
   def valid_moves?(moves)
     test_board = board.dup
     begin
-      perform_moves!(moves)
-    rescue RuntimeError => e
+      test_board[self.pos].perform_moves!(moves)
+    rescue InvalidMoveError => e
+      puts "#{e.move} #{e.message}"
       false
     end
     true
@@ -35,21 +38,23 @@ class Piece
 
   def perform_moves(moves)
    if valid_moves?(moves)
+    #  debugger
      perform_moves!(moves)
    else
-     puts "#{e.message}"
+     puts "#{e.move} #{e.message}"
    end
   end
 
   def perform_moves!(moves)
-    raise 'enter at least one move' if moves.count < 1
+
+    raise InvalidMoveError.new, 'enter at least one move' if moves.count < 1
     if moves.count == 1
       move = moves[0]
-      raise 'enter a valid move' unless valid_slide_or_jump?(move)
+      raise InvalidMoveError.new(move),'is not a valid move' unless valid_slide_or_jump?(move)
       slides.include?(move) ? perform_slide(move) : perform_jump(move)
     else
       moves.each do |move|
-        raise 'one or more of your jumps is invalid' unless jumps.include?(move)
+        raise InvalidMoveError.new(move),'is an invalid jump' unless jumps.include?(move)
         perform_jump(move)
       end
     end

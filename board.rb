@@ -101,15 +101,15 @@ if $PROGRAM_NAME == __FILE__
 
     b.render
 
-    b[[2,2]].perform_moves!([[3,3]])
+    b[[2,2]].perform_moves([[3,3]])
     b.render
-    b[[3,3]].perform_moves!([[4,4]])
+    b[[3,3]].perform_moves([[4,4]])
     b.render
     # b[[5,3]].perform_moves([[3,5]])
     # b.render
-    b[[1,1]].perform_moves!([[2,2]])
+    b[[1,1]].perform_moves([[2,2]])
     b.render
-    b[[5,5]].perform_moves!([[3,3], [1,1]])
+    b[[5,5]].perform_moves([[3,3], [1,1]])
     b.render
     b[[0,0]].perform_moves([[2,2], [7,7]])
     b.render
