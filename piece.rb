@@ -29,8 +29,7 @@ class Piece
     test_board = board.dup
     begin
       test_board[self.pos].perform_moves!(moves)
-    rescue InvalidMoveError => e
-      puts "#{e.move} #{e.message}"
+    rescue 
       false
     end
     true
@@ -40,25 +39,33 @@ class Piece
    if valid_moves?(moves)
      perform_moves!(moves)
      promote
-   else
-     puts "#{e.move} #{e.message}"
    end
   end
 
   def perform_moves!(moves)
-    raise InvalidMoveError.new('enter at least one move') if moves.count < 1
+
+
+    handle_bad_move('enter at least one move') if moves.count < 1
     if moves.count == 1
       move = moves[0]
       unless perform_slide(move) || perform_jump(move)
-        raise InvalidMoveError.new('is not a valid move', move)
+        handle_bad_move('is not a valid move', move)
       end
     else
       moves.each do |move|
         unless perform_jump(move)
-          raise InvalidMoveError.new('is an invalid jump', move)
+          handle_bad_move('is an invalid jump', move)
         end
       end
     end
+  end
+
+  def handle_bad_move(message, move=nil)
+    raise InvalidMoveError.new(message, move)
+  end
+
+  def handle_bad_piece(message, piece)
+    raise InvalidPieceError.new(message, piece)
   end
 
   def promote
@@ -87,6 +94,10 @@ class Piece
     else
       false
     end
+  end
+
+  def has_no_moves?
+    slides.concat(jumps).empty?
   end
 
   def jumps
@@ -121,5 +132,4 @@ class Piece
   def jump_direction(start_pos, end_pos)
     [(end_pos[0] - start_pos[0]) / 2, (end_pos[1] - start_pos[1]) / 2]
   end
-
 end

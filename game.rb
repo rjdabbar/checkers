@@ -20,7 +20,6 @@ class Game
   end
 end
 
-
 class HumanPlayer
 
   attr_reader :color
@@ -32,18 +31,27 @@ class HumanPlayer
   def play_turn(board)
     board.render
     puts "#{color.to_s.upcase}'s TURN'"
-    piece = get_piece
-    begin
-      board.make_moves(piece, get_moves)
-    rescue
 
+    begin
+      piece = get_piece
+      board.make_moves(color, piece, get_moves)
+    rescue InvalidPieceError => e
+      puts "#{e.piece} #{e.message}"
+      retry
+    rescue InvalidMoveError => e
+      puts "#{e.move} #{e.message}"
       retry
     end
   end
 
   def get_piece
     puts "Which piece would you like to move?"
-    gets.chomp.split(',').map { |coord| Integer(coord) }
+    begin
+      piece_pos = gets.chomp.split(',').map { |coord| Integer(coord) }
+    rescue
+      retry
+    end
+
   end
 
   def get_moves

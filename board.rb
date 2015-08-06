@@ -62,7 +62,12 @@ class Board
     self[end_pos] = piece
   end
 
-  def make_moves(piece_pos, moves)
+  def make_moves(turn_color, piece_pos, moves)
+    if turn_color != self[piece_pos].color
+      raise InvalidPieceError.new('that is not your piece to move', piece_pos)
+    elsif self[piece_pos].has_no_moves?
+      raise InvalidPieceError.new('that piece has no moves', piece_pos)
+    end
     self[piece_pos].perform_moves(moves)
   end
 
