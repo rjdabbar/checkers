@@ -19,12 +19,24 @@ class Piece
     color == :red ? RED_MOVES : BLACK_MOVES
   end
 
+  def valid_moves?(moves)
+    test_board = board.dup
+    perform_moves!(moves)
+  end
+
+  def valid_slide_or_jump?(move)
+    slides.include?(move) || jumps.include?(move)
+  end
+
   def perform_moves!(moves)
+    raise 'enter at least one move' if moves.count < 1
     if moves.count == 1
       move = moves[0]
+      raise 'enter a valid move' unless valid_slide_or_jump?(move)
       slides.include?(move) ? perform_slide(move) : perform_jump(move)
     else
       moves.each do |move|
+        raise 'one or more of your jumps is invalid' unless jumps.include?(move)
         perform_jump(move)
       end
     end
