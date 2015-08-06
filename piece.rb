@@ -52,7 +52,7 @@ class Piece
       jumps << jump_pos if board.can_jump?(blocked_pos, color, jump_pos)
     end
 
-    jumps.select { |move| valid_move?(move) }
+    jumps.select { |move| board.valid_move?(move) }
   end
 
   def slides
@@ -62,7 +62,7 @@ class Piece
         slides << potential_slide if board.empty?(potential_slide)
       end
 
-    slides.select { |move| valid_move?(move) }
+    slides.select { |move| board.valid_move?(move) }
   end
 
   def new_slide(start_pos, dir)
@@ -72,13 +72,9 @@ class Piece
   def new_jump(start_pos, dir)
     [start_pos[0] + dir[0]*2, start_pos[1] + dir[1]*2]
   end
-
-  def valid_move?(move)
-    move.all? { |coord| coord.between?(0,7) }
-  end
-
+  
   def jump_direction(start_pos, end_pos)
-    [(end_pos[0] - start_pos[0] )/2, (end_pos[1] - start_pos[1])/2]
+    [(end_pos[0] - start_pos[0]) / 2, (end_pos[1] - start_pos[1]) / 2]
   end
 
 end

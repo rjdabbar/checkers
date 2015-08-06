@@ -37,6 +37,10 @@ class Board
     empty?(jump_pos) && !empty?(blocked_pos) && enemy?(blocked_pos, color)
   end
 
+  def valid_move?(move)
+    move.all? { |coord| coord.between?(0, BOARD_SIZE - 1) }
+  end
+
   def update_move(piece, end_pos)
     self[piece.pos] = nil
     piece.pos = end_pos
