@@ -19,6 +19,13 @@ class Piece
     color == :red ? RED_MOVES : BLACK_MOVES
   end
 
+  def perform_move_sequence(move_sequence)
+    if move_sequence.count == 1
+      move = move_sequence[0]
+      slides.include?(move) ? perform_slide(move) : perform_jump(move)
+    end
+  end
+
   def perform_slide(new_pos)
     if slides.include?(new_pos)
       board.update_move(self, new_pos)

@@ -6,7 +6,9 @@ require 'colorize'
 class Board
   BOARD_SIZE = 8
   START_ROWS = [[0,1,2], [5,6,7]]
-   attr_reader :grid
+
+  attr_reader :grid
+
   def initialize(filled=true)
     populate_board(filled)
   end
@@ -100,11 +102,11 @@ if $PROGRAM_NAME == __FILE__
 
     b.render
 
-    b[[2,2]].perform_slide([3,3])
+    b[[2,2]].perform_move_sequence([[3,3]])
     b.render
-    b[[3,3]].perform_slide([4,4])
+    b[[3,3]].perform_move_sequence([[4,4]])
     b.render
-    b[[5,3]].perform_jump([3,5])
+    b[[5,3]].perform_move_sequence([[3,5]])
     b.render
 
 end
