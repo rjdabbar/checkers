@@ -2,6 +2,8 @@ require_relative 'piece.rb'
 require 'colorize'
 
 class Board
+  BOARD_SIZE = 8
+  START_ROWS = [[0,1,2], [5,6,7]]
    attr_reader :grid
   def initialize(filled=true)
     populate_board(filled)
@@ -26,37 +28,36 @@ class Board
   end
 
   def render
-      print "_________________________________________\n"
-      grid.each_with_index do |row, row_idx|
-        print "|"
-        row.each_with_index do |col, col_idx|
-          if self[[row_idx, col_idx]].nil?
-            print "    |"
-          else
-            print "  #{self[[row_idx, col_idx]].to_s} |"
-          end
+    print "_________________________________________\n"
+    grid.each_with_index do |row, row_idx|
+      print "|"
+      row.each_with_index do |col, col_idx|
+        if self[[row_idx, col_idx]].nil?
+          print "    |"
+        else
+          print "  #{self[[row_idx, col_idx]].to_s} |"
         end
-          print "\n|____|____|____|____|____|____|____|____|\n"
       end
-      nil
+        print "\n|____|____|____|____|____|____|____|____|\n"
     end
+    nil
+  end
 
   def populate_board(filled)
-    @grid = Array.new(8) { Array.new(8) }
+    @grid = Array.new(BOARD_SIZE) { Array.new(BOARD_SIZE) }
     return unless filled
     [:red, :black].each { |color| place_pieces(color)}
   end
 
   def place_pieces(color)
-    start_rows = [[0,1,2], [5,6,7]]
-    color == :red ? home = start_rows.shift : home = start_rows.pop
-
+    color == :red ? home = START_ROWS.shift : home = START_ROWS.pop
     home.each do |row|
-      8.times do |col|
+      BOARD_SIZE.times do |col|
         if row.even? && col.even? || row.odd? && col.odd?
           Piece.new(color, [row, col], self)
         end
       end
     end
   end
+
 end
