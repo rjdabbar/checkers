@@ -1,6 +1,7 @@
 require 'colorize'
 class Piece
-
+  RED_MOVES =   [[ 1, -1],[ 1, 1]]
+  BLACK_MOVES = [[-1, -1],[-1, 1]]
   attr_reader :color, :board
   attr_accessor :pos
 
@@ -12,6 +13,8 @@ class Piece
   def to_s
     print "O".colorize(color)
   end
+
+
 
 
 
